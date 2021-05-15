@@ -23,7 +23,7 @@ function generatePassword(){
     var type_selections = [true, true, true, true]; // 0: lowercase, 1: uppercase, 2: numbers, 3: special characters.
     var selections_done = false;
     var final_password = "";
-    var types = ["lowercase Letters\n(Example: abcd)", "uppercase Letters\n(Example: ABCD)", "Numbers\n(Example: 1234)", "special characters\n(Example: #$%&)"];
+    var types = ["lowercase letters?\n(Example: abcd)", "uppercase letters?\n(Example: ABCD)", "numbers?\n(Example: 1234)", "special characters?\n(Example: #$%&)"];
     var charpool = [];
 
     //Password Length selection
@@ -80,7 +80,7 @@ function generatePassword(){
 function selectchartypes(){
   do{
     for (var i=0; i < types.length; i++){
-      if (confirm("Do you want to include " + types[i] + " in your password")){
+      if (confirm("Do you want to include in your password " + types[i])){
             type_selections[i]=true;
           }
       else{
@@ -138,7 +138,7 @@ function selectchartypes(){
       if(password_length != null && selections_done != null){
 
         //Confirm Selections
-        alert("You have selected the follwing:\nPassword Length: " + password_length + "\nWill the password:\n- Contain Special Caracters? " + type_selections[0] + "\n- Contain Uppercase Letters? " + type_selections[1] + "\n- Contain Lowercase Letters? " + type_selections[2] + "\n- Contain Numbers? " + type_selections[3]);
+        alert("You have selected the follwing:\nPassword Length: " + password_length + "\nThe password will:\n- Contain Special characters. " + type_selections[0] + "\n- Contain Uppercase characters. " + type_selections[1] + "\n- Contain Lowercase characters? " + type_selections[2] + "\n- Contain Numeric characters? " + type_selections[3]);
         
         // Create the character pool based on selections
         for(var i=0; i<charsets.length; i++){
