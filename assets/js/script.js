@@ -156,7 +156,7 @@ function selectchartypes(){
       }
       //If its canceled by user.
       else{
-        return_password =  "Canceled by user, click on Generate Password to restart";
+        return_password =  "Canceled by user, click on Generate Password to restart.";
         return return_password;
       }
     }
