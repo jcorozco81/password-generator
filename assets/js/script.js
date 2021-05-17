@@ -13,13 +13,16 @@ function writePassword() {
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
-//new code
 function generatePassword(){
 
-  //variables
+/* The following code was created by Juan Orozco */
+
+  // Variables
+
+  // Array charsets: [0] lowercase, [1] uppercase, [2] numbers, [3] special characters.
   var charsets = [ ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"], ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"], ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],['\u0020','\u0021','\u0022','\u0023','\u0024','\u0025','\u0026','\u0027','\u0028','\u0029','\u002A','\u002B','\u002C','\u002D','\u002E','\u002F','\u003A','\u003B','\u003C','\u003D','\u003E','\u003F','\u0040','\u005B','\u005C','\u005D','\u005E','\u005F','\u0060','\u007B','\u007C','\u007D','\u007E']];
   var password_length=0;
-  var type_selections = [true, true, true, true]; // 0: lowercase, 1: uppercase, 2: numbers, 3: special characters.
+  var type_selections = [true, true, true, true]; // [0] lowercase, [1] uppercase, [2] numbers, [3] special characters.
   var selections_done = false;
   var types = ["lowercase letters?\n(Example: abcd)", "uppercase letters?\n(Example: ABCD)", "numbers?\n(Example: 1234)", "special characters?\n(Example: #$%&)"];
   var charpool = [];
@@ -107,11 +110,52 @@ function generatePassword(){
   }
 
 
+  // The follwing function will return a randomized password created per the user entries.
+  function returnfunction(){
+    var return_password="";
+    var pushchars = [];
+    var j=0;
+    
+    if(password_length != null && selections_done != null){
+     
+      //Confirm Selections (Removed)
+      // alert("You have selected the follwing:\n- Password Length: " + password_length + "\n- Contain Special characters: " + type_selections[0] + "\n- Contain Uppercase characters: " + type_selections[1] + "\n- Contain Lowercase characters: " + type_selections[2] + "\n- Contain Numeric characters: " + type_selections[3]);
+        
+        // Create the character pool based on selections
+      for(var i=0; i<charsets.length; i++){
+        if(type_selections[i]){
+            pushchars[j] = extrachars(i);
+            j++;
+            charpool = charpool.concat(charsets[i]);
+        }
+      }
+
+      //Return final password to the Webpage.
+        return_password = randomize(charpool, password_length, pushchars);
+        return return_password;
+      }
+
+      //If its canceled by user. A message wil be displayed.
+    else{
+      return_password = "Canceled by user, click on Generate Password to restart.";
+      return return_password;
+      }
+    }
+
+
+    // The following fuctions is to ensure that at least one character for each of the selected char types is selected
+  function extrachars(i){
+    var selectarray= [];
+    var addchar = 0;
+    selectarray = charsets[i];
+    addchar = selectarray[(Math.floor(Math.random() * (selectarray.length - 0) + 0))];
+    return addchar;
+    }   
+  
 
 
   //The following fuction receives the character pool in form of an array and the the password length and then it returns the password.
   function randomize(to_rand_array, plength, pushchars){
-
     var password_array = [];
     password_array=password_array.concat(pushchars); //fuction receives one character of each of the types selelected by the user and it is concated to the password array.
     console.log(password_array);
@@ -130,6 +174,8 @@ function generatePassword(){
 
   }
 
+
+// The following fuction randomize the password before it is displayed to the user.
   function torandomize(prandomize){
     var j, k; //j -> random index, k -> temporary staging area
     for (var i = prandomize.length -1; i > -1; i--) {
@@ -139,46 +185,5 @@ function generatePassword(){
       prandomize[j] = k
     }
   return prandomize;
-}
-
-  // The follwing function 
-  function returnfunction(){
-    var return_password="";
-    var pushchars = [];
-    var j=0;
-    
-    if(password_length != null && selections_done != null){
-     
-      //Confirm Selections
-      alert("You have selected the follwing:\n- Password Length: " + password_length + "\n- Contain Special characters: " + type_selections[0] + "\n- Contain Uppercase characters: " + type_selections[1] + "\n- Contain Lowercase characters: " + type_selections[2] + "\n- Contain Numeric characters: " + type_selections[3]);
-        
-        // Create the character pool based on selections
-      for(var i=0; i<charsets.length; i++){
-        if(type_selections[i]){
-            pushchars[j] = extrachars(i);
-            j++;
-            charpool = charpool.concat(charsets[i]);
-        }
-      }
-
-      //Return final password to the Webpage.
-        return_password = randomize(charpool, password_length, pushchars);
-        return return_password;
-      }
-
-      //If its canceled by user.
-    else{
-      return_password = "Canceled by user, click on Generate Password to restart.";
-      return return_password;
-      }
-    }
-
-    // Extra Characters
-  function extrachars(i){
-    var selectarray= [];
-    var addchar = 0;
-    selectarray = charsets[i];
-    addchar = selectarray[(Math.floor(Math.random() * (selectarray.length - 0) + 0))];
-    return addchar;
-  }   
+  }
 }
